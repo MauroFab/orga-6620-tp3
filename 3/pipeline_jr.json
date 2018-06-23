@@ -200,7 +200,7 @@
 		{"from": "ForkRegWR2", "out": "Out1", "to": "RegBank", "in": "RegWrite", "points": [{"x": 710, "y": 105}, {"x": 300, "y": 105}]},
 		{"from": "ForkRegWR2", "out": "Out2", "to": "ForwardingUnit", "in": "MEM/WB.RegWrite", "points": [{"x": 710, "y": 450}]},
 		{"from": "ALUControl", "out": "isJR", "to": "EX/MEM", "in": "isJR","end":{"x": 550, "y":356}},
-		{"from": "EX/MEM", "out": "isJR", "to": "OrBrJR", "in": "InJR"},
+		{"from": "EX/MEM", "out": "isJR", "to": "OrBrJR", "in": "InJR", "start":{"x":565,"y":356}},
 		{"from": "ForkBr0", "out": "OutFork", "to": "MuxBrJr", "in": "selIsBranch"},
 		{"from": "ForkReadData0Ex", "out": "Out2", "to": "MuxBrJr", "in": "0", "points": [{"x":416, "y":163}]}
 	],
