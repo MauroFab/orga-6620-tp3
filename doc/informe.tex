@@ -1,0 +1,148 @@
+\documentclass[11pt,a4paper, spanish]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\selectlanguage{spanish}
+\usepackage{graphicx}
+\usepackage{listings}
+
+\lstset{
+    language=C,
+    tabsize=4,
+    basicstyle=\fontsize{11}{13}\ttfamily\footnotesize,
+    showspaces=false,
+    showstringspaces=false,
+    captionpos=b,
+    breaklines=true,
+    literate={á}{{\'a}}1
+        {ã}{{\~a}}1
+        {é}{{\'e}}1
+        {ó}{{\'o}}1
+        {í}{{\'i}}1
+        {ñ}{{\~n}}1
+        {¡}{{!`}}1
+        {¿}{{?`}}1
+        {ú}{{\'u}}1
+        {Í}{{\'I}}1
+    {Ó}{{\'O}}1
+}
+
+\usepackage{multirow}
+\usepackage{float}
+\usepackage[caption = false]{subfig}
+
+\setcounter{secnumdepth}{0}
+
+\begin{document}
+
+%  FRONTPAGE
+
+\begin{titlepage}
+  \noindent%
+  \begin{tabular}{@{}p{\textwidth}@{}}
+    \vspace{0.2cm}
+    \begin{center}
+    \Huge{\textbf{
+      Data Path
+    }}
+    \end{center}
+    \begin{center}
+      \Large{
+         66:20 Organizaci\'on de Computadoras
+      }
+    \end{center}
+    \vspace{0.2cm}\\
+  \end{tabular}
+  \vspace{4 cm}
+  \begin{center}
+    {\large
+      Trabajo práctico 3
+    }\\
+    \vspace{0.6cm}
+    {\Large
+    Mauro Toscano (96890)\\
+    Axel Lijdens (95772)
+    }
+  \end{center}
+  \vfill
+  \begin{center}
+  Univesidad de Buenos Aires - FIUBA
+  \end{center}
+\end{titlepage}
+
+
+\tableofcontents
+\pagebreak
+% Prologo
+
+\section{Objetivos}
+
+El objetivo de este trabajo es familiarizarse con la arquitectura de una CPU MIPS, espec\'ficamente con el datapath y la implementación de instrucciones. Para ello, se deberían agregar instrucciones a diversas configuraciones de CPU provistas por el simulador DrMIPS
+
+\section{Alcance}
+
+Este trabajo práctico es de elaboración grupal, evaluación individual, y de carácter obligatorio para todos alumnos del curso.
+
+\section{Requisitos}
+
+El trabajo deberá ser entregado personalmente, en la fecha estipulada, con una carátula que contenga los datos completos de todos los integrantes.
+
+Además, es necesario que el trabajo práctico incluya (entre otras cosas, ver sección 8), la presentación de los resultados obtenidos, explicando, cuando corresponda, con fundamentos reales, las causas o razones de cada resultado obtenido. Por este motivo, el día de la entrega deben concurrir todos los integrantes del grupo.
+
+El informe deber\'a respetar el modelo de referencia que se encuentra en el grupo, y se valorar\'an aquellos escritos usando la herramienta TEX / LATEX.
+
+\section{Recursos}
+
+Usaremos el programa DrMIPS para configurar y simular el data path de un procesador MIPS, tanto uniciclo como multiciclo.
+
+\section{Fecha de entrega}
+
+La última fecha de entrega y presentación ser\'a el jueves 28 de junio de 2018.
+
+\section{Introducción}\label{informe}
+El programa DrMIPS nos permite evaluar distintos diseños de datapath para procesadores
+MIPS32, al darnos la posibilidad de organizarlo como queramos. Si bien sólo puede haber uno
+de algunos de los componentes del DP (como el registro de PC o la unidad de control), podemos
+poner sumadores, multiplexores, extensores de signo y conexiones arbitrariamente. También es
+posible modificar el conjunto de instrucciones. Además de la estructura lógica del DP, DrMips
+nos permite escribir programas simples y simular su ejecución en el DP, mostrando los valores
+que toman las diversas entradas y salidas de cada elemento. El programa se puede conseguir en
+https://bitbucket.org/brunonova/drmips/wiki/Home, o se puede descargar para Ubuntu,
+ya sea desde el repositorio de Ubuntu (aunque la versión está desactualizada) o autorizando un
+repositorio externo.
+
+% Desarrollo
+
+\section{Instrucciones a implementar}
+
+\begin{enumerate}
+  \item Implementar la instrucción \texttt{j} en el DP \texttt{pipeline.cpu}.
+  \item Implementar la instrucción \texttt{jr} (Jump Register) en el DP \texttt{unicycle.cpu}.
+  \item Implementar la instrucción \texttt{jr} en el DP \texttt{pipeline.cpu}. Verificar que no se produzcan hazards.
+  \item Implementar la instrucción \texttt{jalr} (Jump and Link Register) en el DP \texttt{unicycle.cpu}.
+  \item Implementar la instrucción \texttt{jalr} en el DP \texttt{pipeline.cpu}. Verificar que no se produzcan hazards.
+\end{enumerate}
+
+
+\section{Pruebas}
+
+En todos los casos debe verificarse que la instrucción se ejecute correctamente. Esto implica
+que el PC tome el valor deseado, y además que en el caso del DP multiciclo no se produzcan
+hazards, como ser la ejecución de la instrucción siguiente al salto, o en el caso de utilizar el valor
+de un registro, que éste tenga el valor correcto.
+
+
+\section{Conclusiones}
+
+
+% SOlO codigos fuente hacia abajo, no hace falta editar!
+
+\newpage
+
+\section{Archivos .cpu}
+
+Repositorio: https://github.com/MauroFab/orga-6620-tp3
+
+
+\end{document}
+\grid
