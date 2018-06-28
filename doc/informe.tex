@@ -1,5 +1,6 @@
 \documentclass[11pt,a4paper, spanish]{article}
 \usepackage[T1]{fontenc}
+\usepackage[a4paper, total={7in, 9in}]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
 \selectlanguage{spanish}
@@ -123,6 +124,7 @@ repositorio externo.
   \item Implementar la instrucción \texttt{jalr} en el DP \texttt{pipeline.cpu}. Verificar que no se produzcan hazards.
 \end{enumerate}
 
+\pagebreak
 
 \section{Implementación}
 
@@ -162,6 +164,8 @@ repositorio externo.
 \caption{Unicycle con Jump and Link Register}
 \end{center}
 \end{figure}
+
+\pagebreak
 
 \section{Pruebas}
 
@@ -221,7 +225,8 @@ Se comprobo el resultado es el esperado con las implementaciones que lo utilizan
 Eesta instrucción guarda la dirección siguiente en \texttt{\$ra} y luego realiza el salto al registro
 indicado. Se utiliza el siguiente programa de prueba:
 
-\begin{lstlisting}[numbers=left, tabsize=2, basicstyle=\fontsize{11}{13}\ttfamily, 	li	$t0, 111
+\begin{lstlisting}[numbers=left, tabsize=2, basicstyle=\fontsize{11}{13}\ttfamily, frame=single, caption={Test jr}]
+  li	$t0, 111
 	li	$t1, 222
 	li	$t2, 24
 	jalr	$t3, $t2
