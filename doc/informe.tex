@@ -124,6 +124,45 @@ repositorio externo.
 \end{enumerate}
 
 
+\section{Implementación}
+
+% TODO: explicar brevemente lo que se hizo para el desarrollo de las instrucciones
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{img/pipeline_con_jump.png}
+\caption{Pipeline con Jump}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{img/unicycle_jr.png}
+\caption{Unicycle con Jump Register}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{img/pipeline_jr.png}
+\caption{Pipeline con Jump Register}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{img/pipeline_jalr.png}
+\caption{Pipeline con Jump and Link Register}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{img/unicycle_jalr.png}
+\caption{Unicycle con Jump and Link Register}
+\end{center}
+\end{figure}
+
 \section{Pruebas}
 
 En todos los casos debe verificarse que la instrucción se ejecute correctamente. Esto implica
@@ -132,8 +171,81 @@ hazards, como ser la ejecución de la instrucción siguiente al salto, o en el c
 de un registro, que éste tenga el valor correcto.
 
 
+\subsection{Jump}
+
+Para probar la instrucción \texttt{J} se utilizó el siguiente programa:
+
+\begin{lstlisting}[numbers=left, tabsize=2, basicstyle=\fontsize{11}{13}\ttfamily, frame=single, caption={Test j}]
+	li	$t0, 111
+	li	$t1, 222
+	j	test
+
+	# las siguientes instrucciones no deberian ejecutarse si el salto se realiza
+	li	$t0, 333
+	li	$t1, 444
+
+test:
+	nop
+\end{lstlisting}
+
+De funcionar correctamente la instrucción, el resultado debe ser \texttt{\$t0=111 y \$t1=222}, ya que las
+otras 2 instrucciones no se ejecutarían.
+
+
+\subsection{Jump Register}
+
+Esta instrucción debe saltar a la dirección guardada en el registro indicado. El ejemplo es similar al
+anterior con la diferencia que se espeficica una dirección particular.
+
+\begin{lstlisting}[numbers=left, tabsize=2, basicstyle=\fontsize{11}{13}\ttfamily, frame=single, caption={Test jr}]
+	li	$t0, 111
+	li	$t1, 222
+	li	$ra, 24
+	jr	$ra
+
+	# las siguientes instrucciones no deberian ejecutarse si el salto se realiza
+	li	$t0, 333
+	li	$t1, 444
+
+test:
+	nop  # si las instrucciones comienzan desde la dirección 0, esta tiene la dirección 24
+\end{lstlisting}
+
+De funcionar correctamente, la ejecución debe continuar en la dirección indicada en \texttt{\$ra}, que
+será la de la operación \texttt{nop} (salteando las instrucciones indicadas).
+
+
+\subsection{Jump and Link Register}
+
+Eesta instrucción guarda la dirección siguiente en \texttt{\$ra} y luego realiza el salto al registro
+indicado. Se utiliza el siguiente programa de prueba:
+
+\begin{lstlisting}[numbers=left, tabsize=2, basicstyle=\fontsize{11}{13}\ttfamily, frame=single, caption={Test jr}]
+	li	$t0, 111
+	li	$t1, 222
+	li	$t2, 24
+	jalr	$t2, $t2
+
+	# las siguientes instrucciones no deberian ejecutarse si el salto se realiza
+	addi	$t0, $t0, 333
+	addi	$t1, $t1, 444
+
+	nop
+\end{lstlisting}
+
+Al igual que el caso anterior, se debe verificar que las operaciones indicadas no se hayan ejecutado.
+Además, se debe verificar que el registro \texttt{\$ra} contenga el valor correspondiente a la instrucción
+siguiente del \texttt{jalr}, es decir, 16.
+
+
 \section{Conclusiones}
 
+DrMIPS es una herramienta útil para poder entender el funcionamiento del DP en MIPS, así
+como el mecanismo de pipeline, ya que se puede ejecutar un programa paso a paso y observar los cambios
+que cada instrucción realiza. Al permitir modificar libremente el DP se puede lograr un mejor
+entendimiento de su funcionamiento. También es útil para simular instrucciones en 
+desarrollo, ya que permite encontrar errores de la misma forma que un debugger o hace
+en un lenguage de programación.
 
 % SOlO codigos fuente hacia abajo, no hace falta editar!
 
