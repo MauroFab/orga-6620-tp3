@@ -190,6 +190,7 @@ test:
 
 De funcionar correctamente la instrucción, el resultado debe ser \texttt{\$t0=111 , \$t1=222 y \$t2 = 555}, ya que las otras 2 instrucciones no se ejecutarían.
 
+Se comprobo el resultado es el esperado con la implementación que lo utiliza.
 
 \subsection{Jump Register}
 
@@ -207,12 +208,13 @@ anterior con la diferencia que se espeficica una dirección particular.
 	li	$t1, 444
 
 test:
-	nop  # si las instrucciones comienzan desde la dirección 0, esta tiene la dirección 24
+	li $t2, 555  # si las instrucciones comienzan desde la dirección 0, esta tiene la dirección 24
 \end{lstlisting}
 
 De funcionar correctamente, la ejecución debe continuar en la dirección indicada en \texttt{\$ra}, que
 será la de la operación \texttt{nop} (salteando las instrucciones indicadas).
 
+Se comprobo el resultado es el esperado con las implementaciones que lo utilizan.
 
 \subsection{Jump and Link Register}
 
@@ -223,19 +225,19 @@ indicado. Se utiliza el siguiente programa de prueba:
 	li	$t0, 111
 	li	$t1, 222
 	li	$t2, 24
-	jalr	$t2, $t2
+	jalr	$t3, $t2
 
-	# las siguientes instrucciones no deberian ejecutarse si el salto se realiza
+	# las siguientes 2 instrucciones no deberian ejecutarse si el salto se realiza
 	addi	$t0, $t0, 333
 	addi	$t1, $t1, 444
 
-	nop
+test:
+       li $t2, 555
 \end{lstlisting}
 
 Al igual que el caso anterior, se debe verificar que las operaciones indicadas no se hayan ejecutado.
-Además, se debe verificar que el registro \texttt{\$ra} contenga el valor correspondiente a la instrucción
-siguiente del \texttt{jalr}, es decir, 16.
-
+Además, se debe verificar que el registro \texttt{\$t3} contenga el valor correspondiente a la instrucción siguiente del \texttt{jalr}, es decir, 16.
+Se comprobo el resultado es el esperado con las implementaciones que lo utilizan.
 
 \section{Conclusiones}
 
