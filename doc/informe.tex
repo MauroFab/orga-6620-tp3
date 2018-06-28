@@ -128,7 +128,21 @@ repositorio externo.
 
 \section{Implementación}
 
-% TODO: explicar brevemente lo que se hizo para el desarrollo de las instrucciones
+Las instrucciones Jump deben poder modificar la actualización del PC, por lo tanto es
+necesario indicar de dónde se obtendrá la nueva dirección. En el caso de Jump,
+la dirección se obtiene desde la instrucción misma. Como las direcciones son múltiplo
+de 4, no es necesario indicar los 2 bits menos significativos (ya que son siempre 0).
+Al valor guardado en la instrucción se lo debe multiplicar por 4 (mediante un shift).
+Esto se controla mediante un mux que en base a la instrucción (Jump o Branch) elije si
+shiftear o sumar el offset.
+
+Para las instrucciones que leen la dirección desde un registro, se debe poder asignar
+el valor del PC desde la salida de registros. Esto se logra uniéndolos con un cable
+y el PC recibe los datos desde un mutex controlado por la ALU.
+
+Para evitar hazards, se optó por vaciar el pipeline cuando se ejecuta una instrucción
+de tipo Jump. De esta forma se evita ejecutar instrucciones que corresponden a la rama
+no tomada.
 
 \begin{figure}
 \begin{center}
