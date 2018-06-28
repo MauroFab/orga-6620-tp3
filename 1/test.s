@@ -7,4 +7,4 @@
 	li	$t1, 444
 
 test:
-	nop
+	li	$t2, 2
